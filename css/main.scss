@@ -1,8 +1,8 @@
 body{
-    background-image: url('../Suunnitelmat/tausta.png');
     width: 100%;
-    background-size: cover auto;
-    background-repeat: no-repeat;
+    height: 100vh;
+    background-color: #8B73FF;
+    background-image: linear-gradient(to bottom right, #8B73FF, #FFBA73 );
     margin: 0;
     z-index: -999;
     
