@@ -153,3 +153,27 @@ display: none;
         }
     }
 }
+@media only screen and (min-width: 760px) {
+    .pollsContainer{
+        display: grid;
+        grid-template-columns: repeat(2, auto);
+        margin-bottom: 8em;
+        align-items: center;
+        
+
+        
+        
+        
+        .pol1{
+            width: 15em;
+            height: 12em;
+            position: relative;
+            margin: auto;
+        }
+        .pol2{
+            width: 15em;
+            height: 12em;
+            margin: auto;
+        }
+    }
+}
