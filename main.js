@@ -35,3 +35,44 @@ logIn.addEventListener('click', () => {
     closeLogInPop.addEventListener('click', () => {
     LogInPopUp.classList.remove('open-logInPopUp')
 });
+
+// Register & Login //
+let user = [];
+
+
+function storeInfo() {
+    let username = document.getElementById('id').value
+    let password = document.getElementById('salasana').value
+    let email = document.getElementById('email').value
+    user.push({
+        username: username,
+        password: password,
+        email: email
+    })
+    console.log(user);
+    document.getElementById('lomakeH1').innerHTML = ('Kiitos rekisteröitymisestä')
+    setTimeout(() => regPopUp.classList.remove('open-registerationPopUp'), 1000);
+    
+}
+function getInfo() {
+    let username = document.getElementById('idLogIn').value
+    let password = document.getElementById('salasanaLogIn').value
+    if(username == 'admin' && password == 'asd123'){
+        console.log('admin is logged in')
+        document.getElementById('omatili').style.display='unset'
+        document.getElementById('kirjaudu').style.display='none'
+        LogInPopUp.classList.remove('open-logInPopUp')
+        return;
+    }else{
+        for(i = 0; i < user.length; i++){
+            if(username == user[i].username && password == user[i].password){
+                console.log(username + ' is logged in')
+                document.getElementById('omatili').style.display='unset'
+                document.getElementById('kirjaudu').style.display='none'
+                LogInPopUp.classList.remove('open-logInPopUp')
+                return;
+            }
+        }
+        console.log('incorrect username or password')
+    }
+}
