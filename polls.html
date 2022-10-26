@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
-    <title>polls</title>
+    <title>Etusivu</title>
 </head>
 <body>
     <div class="header">
@@ -19,9 +19,10 @@
 
         <nav>
             <ul>
-                <li><a href="#">Polls</a></li>
-                <li id="rekisteroidu"><a href="#">Rekisteröidy</a></li>
-                <li id="kirjaudu"><a href="#">Kirjaudu</a></li>
+                <li><a href="polls.html">Polls</a></li>
+                <li><a href="#" id="rekisteroidu">Rekisteröidy</a></li>
+                <li><a href="#" id="kirjaudu">Kirjaudu</a></li>
+                <li><a href="#" id="omatili">Omatili</a></li>
             </ul>
             <a href="#" id="close">CLOSE</a>
         </nav>
@@ -33,14 +34,14 @@
 
 
     </div>
-    
+
     <div class="formContainer">
         <form id="lomake">
             <div id="otsikot">
-            <h1>Rekisteröitymislomake</h1>
+            <h1 id="lomakeH1">Rekisteröitymislomake</h1>
             </div>
             <div class="kayttaja">
-                <input type="text" id="id": minlength="6" placeholder="Käyttäjätunnus">
+                <input type="text" id="id": placeholder="Käyttäjätunnus">
             </div>
             <div class="salasana">
                 <input type="password" id="salasana": placeholder="Salasana">
@@ -49,7 +50,7 @@
                 <input type="email" id="email" placeholder="Email">
             </div>
             <div>
-                <button id="submit" onclick="btn();">Rekisteröidy</button>
+                <button id="submit" onclick="storeInfo();">Rekisteröidy</button>
             </div>
             <div class="closeForm" id="closeForm">+</div>
         </form>
@@ -61,19 +62,36 @@
             <h1>Kirjaudu</h1>
             </div>
             <div class="kayttaja">
-                <input type="text" id="idLogIn": minlength="6" placeholder="Käyttäjätunnus">
+                <input type="text" id="idLogIn": placeholder="Käyttäjätunnus">
             </div>
             <div class="salasana">
                 <input type="password" id="salasanaLogIn": placeholder="Salasana">
             </div>
             <div>
-                <button id="kirjaudu" onclick="btn();">Kirjaudu</button>
+                <button id="kirjaudu" onclick="getInfo();">Kirjaudu</button>
             </div>
             <div>
                 <button id="forgot" onclick="btn();">Unohdin salasanan</button>
             </div>
             <div class="close2Form" id="close2Form">+</div>
         </form>
+    </div>
+
+    <div class="voteContainer">
+        <ul id="poll">
+            <h2> poll1</h2>
+            <button id="vote1">vote for this</button>
+            <button id="vote2">vote for this</button>
+            <button id="vote3">vote for this</button>
+        </ul>
+        <ul id="poll2">
+            <h2> poll2</h2>
+            <button id="vote1">vote for this</button>
+            <button id="vote2">vote for this</button>
+            <button id="vote3">vote for this</button>
+        </ul>
+
+
     </div>
 
 

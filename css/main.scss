@@ -195,7 +195,6 @@ display: none;
         background-color: white;
         border-radius: 4px;
         text-align: center;
-        padding: 20px;
         input{
             display: block;
             margin: 15px auto;
@@ -217,6 +216,31 @@ display: none;
 }
 .open-logInPopUp{
     transform: translateX(0%);
+}
+
+// Polls //
+.voteContainer{
+    display: flex;
+    width: 100%px;
+    height: 300px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25em;
+    flex-direction: column;
+    ul{
+        background-color: #FFA8DC;
+        padding: 1em;
+        text-align: center;
+        border-radius: 15px;
+        box-shadow: 2px 2px 2px 10px rgba(90, 88, 88, 0.15);
+    }
+    button{
+        display: flex;
+        flex-direction: column;
+        width: 20rem;
+        height: 5rem;
+        cursor: pointer;
+    }
 }
 
 

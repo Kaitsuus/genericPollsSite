@@ -67,7 +67,7 @@ function getInfo() {
         for(i = 0; i < user.length; i++){
             if(username == user[i].username && password == user[i].password){
                 console.log(username + ' is logged in')
-                document.getElementById('omatili').style.display='unset'
+                document.getElementById('omatili').style.display='list-item'
                 document.getElementById('kirjaudu').style.display='none'
                 LogInPopUp.classList.remove('open-logInPopUp')
                 return;
