@@ -76,6 +76,14 @@ function getInfo() {
         console.log('incorrect username or password')
     }
 }
+// voting //
 
-// Voteing system //
+let userVoted = document.getElementsByClassName('voteButton');
+
+for (let voteButton of userVoted) {
+    voteButton.addEventListener('click', function handleClick(event){
+        console.log('box clicked ', event);
+        voteButton.setAttribute('value', 'asd');
+    });
+}
 
