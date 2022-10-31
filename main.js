@@ -10,6 +10,7 @@ close.addEventListener('click', () => {
     nav.classList.remove('open-nav')
 });
 
+
 // RegisterationPopUp //
 const registeration = document.getElementById('rekisteroidu')
 const closePop = document.getElementById('closeForm')
@@ -36,46 +37,82 @@ logIn.addEventListener('click', () => {
     LogInPopUp.classList.remove('open-logInPopUp')
 });
 
-// Register & Login //
-let user = [];
+// Registeration //
+const registerUser = e => {
+    let username = document.getElementById('id').value,
+        password = document.getElementById('salasana').value,
+        email = document.getElementById('email').value;
+    let formData = JSON.parse(localStorage.getItem('formData')) || [];
 
+    let exist = formData.length && JSON.parse(localStorage.getItem('formData')).some(data => 
+        data.username.toLowerCase() == username.toLowerCase()
+        );
 
-function storeInfo() {
-    let username = document.getElementById('id').value
-    let password = document.getElementById('salasana').value
-    let email = document.getElementById('email').value
-    user.push({
-        username: username,
-        password: password,
-        email: email
-    })
-    console.log(user);
-    document.getElementById('lomakeH1').innerHTML = ('Kiitos rekisteröitymisestä')
-    setTimeout(() => regPopUp.classList.remove('open-registerationPopUp'), 1000);
-    
+    if(!exist){
+        formData.push({username, password, email});
+        localStorage.setItem('formData', JSON.stringify(formData));
+        console.log(formData);
+        document.getElementById('lomakeH1').innerHTML = ('Kiitos rekisteröitymisestä')
+        setTimeout(() => regPopUp.classList.remove('open-registerationPopUp'), 1000);
+        document.getElementById('lomake').reset();
+    }
+    else{
+        document.getElementById('lomakeH1').innerHTML = ('Olet jo rekisteröitynyt!')
+        setTimeout(() => regPopUp.classList.remove('open-registerationPopUp'), 1000);
+    }
+    e.preventDefault();
+
 }
-function getInfo() {
-    let username = document.getElementById('idLogIn').value
-    let password = document.getElementById('salasanaLogIn').value
+// Login //
+
+function signIn(e) {
+    let username = document.getElementById('idLogIn').value,
+        password = document.getElementById('salasanaLogIn').value;
+    let formData = JSON.parse(localStorage.getItem('formData')) || [];
+    let exist = formData.length && 
+    JSON.parse(localStorage.getItem('formData')).some(data => data.username.toLowerCase() == username && data.password.toLowerCase() == password);
     if(username == 'admin' && password == 'asd123'){
-        console.log('admin is logged in')
-        document.getElementById('omatili').style.display='unset'
+        console.log('admin logged in')
+        sessionStorage.setItem('currentLoggedIn','admin');
+        document.getElementById('omatili').style.display='list-item'
         document.getElementById('kirjaudu').style.display='none'
         LogInPopUp.classList.remove('open-logInPopUp')
         return;
-    }else{
-        for(i = 0; i < user.length; i++){
-            if(username == user[i].username && password == user[i].password){
-                console.log(username + ' is logged in')
-                document.getElementById('omatili').style.display='list-item'
-                document.getElementById('kirjaudu').style.display='none'
-                LogInPopUp.classList.remove('open-logInPopUp')
-                return;
-            }
-        }
+    }
+    else if(!exist){
         console.log('incorrect username or password')
     }
+    else{
+        sessionStorage.setItem('currentLoggedIn',username);
+        console.log(username)
+        document.getElementById('omatili').style.display='list-item'
+        document.getElementById('kirjaudu').style.display='none'
+        LogInPopUp.classList.remove('open-logInPopUp')
+        return;
+    }
+    e.preventDefault();
 }
+let loggedin = sessionStorage.getItem('currentLoggedIn');
+
+function testUserOnline(){
+    if (sessionStorage.getItem('currentLoggedIn') === 'admin'){
+        document.getElementById('omatili').style.display='list-item'
+        document.getElementById('kirjaudu').style.display='none'
+        document.getElementById('logout').style.display='list-item'
+    } 
+    else{
+        document.getElementById('omatili').style.display='none'
+        document.getElementById('kirjaudu').style.display='list-item'
+        document.getElementById('logout').style.display='none'
+    }
+}
+testasd()
+
+function logOut(){
+    sessionStorage.clear()
+}
+
+
 // voting //
 
 let userVoted = document.getElementsByClassName('voteButton');

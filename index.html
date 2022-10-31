@@ -14,7 +14,9 @@
     <div class="header">
 
         <div class="logo">
-            <img src="./Suunnitelmat/logo.svg" alt="" id="logo">
+            <a href="index.html">
+                <img src="./Suunnitelmat/logo.svg" alt="" id="logo">
+            </a>
         </div>
 
         <nav>
@@ -23,6 +25,7 @@
                 <li><a href="#" id="rekisteroidu">Rekisteröidy</a></li>
                 <li><a href="#" id="kirjaudu">Kirjaudu</a></li>
                 <li><a href="#" id="omatili">Omatili</a></li>
+                <li><a href="index.html" id="logout" onclick="logOut();">Log out</a></li>
             </ul>
             <a href="#" id="close">CLOSE</a>
         </nav>
@@ -66,7 +69,7 @@
     </div>
 
     <div class="formContainer">
-        <form id="lomake">
+        <form id="lomake" role="form" onsubmit="registerUser(event);" autocomplete="off">
             <div id="otsikot">
             <h1 id="lomakeH1">Rekisteröitymislomake</h1>
             </div>
@@ -80,14 +83,14 @@
                 <input type="email" id="email" placeholder="Email">
             </div>
             <div>
-                <button id="submit" onclick="storeInfo();">Rekisteröidy</button>
+                <button id="submit">Rekisteröidy</button>
             </div>
             <div class="closeForm" id="closeForm">+</div>
         </form>
     </div>
 
     <div class="form2Container">
-        <form id="lomakeKirjaudu">
+        <form id="lomakeKirjaudu" role="form" onsubmit="signIn(event);" autocomplete="off">
             <div id="otsikot">
             <h1>Kirjaudu</h1>
             </div>
@@ -98,7 +101,7 @@
                 <input type="password" id="salasanaLogIn": placeholder="Salasana">
             </div>
             <div>
-                <button id="kirjaudu" onclick="getInfo();">Kirjaudu</button>
+                <button id="kirjaudu" type="submit">Kirjaudu</button>
             </div>
             <div>
                 <button id="forgot" onclick="btn();">Unohdin salasanan</button>
