@@ -64,7 +64,7 @@ const registerUser = e => {
 
 }
 // Login //
-
+let username = document.getElementById('idLogIn').value
 function signIn(e) {
     let username = document.getElementById('idLogIn').value,
         password = document.getElementById('salasanaLogIn').value;
@@ -99,11 +99,21 @@ function testUserOnline(){
         document.getElementById('omatili').style.display='list-item'
         document.getElementById('kirjaudu').style.display='none'
         document.getElementById('logout').style.display='list-item'
-    } 
+        document.getElementById('rekisteroidu').style.display='none'
+        document.getElementById('userInfo').innerHTML = ' Admin'
+    }
+    if (sessionStorage.getItem('currentLoggedIn',username)){
+        document.getElementById('omatili').style.display='list-item'
+        document.getElementById('kirjaudu').style.display='none'
+        document.getElementById('logout').style.display='list-item'
+        document.getElementById('rekisteroidu').style.display='none'
+        document.getElementById('userInfo').innerHTML = ' ' + sessionStorage.getItem('currentLoggedIn',username);
+    }
     else{
         document.getElementById('omatili').style.display='none'
         document.getElementById('kirjaudu').style.display='list-item'
         document.getElementById('logout').style.display='none'
+        document.getElementById('rekisteroidu').style.display='list-item'
     }
 }
 testUserOnline()
@@ -111,7 +121,6 @@ testUserOnline()
 function logOut(){
     sessionStorage.clear()
 }
-
 
 // voting //
 
