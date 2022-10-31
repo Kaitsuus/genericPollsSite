@@ -106,7 +106,7 @@ function testUserOnline(){
         document.getElementById('logout').style.display='none'
     }
 }
-testasd()
+testUserOnline()
 
 function logOut(){
     sessionStorage.clear()
