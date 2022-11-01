@@ -124,15 +124,13 @@ function logOut(){
 
 // voting //
 
-let userVoted = document.querySelector('.voteButton')
-userVoted.addEventListener('click', function handleClick(event){
-    console.log('box clicked ', event);
-    userVoted.setAttribute('value', 'asd');
-});
-userVoted.addEventListener("click", function(){
-    console.log('box clicked');
-    userVoted.setAttribute('value', 'asd');
-    
-});
+let userVoted = document.getElementsByClassName('voteButton');
+
+for (let voteButton of userVoted) {
+    voteButton.addEventListener('click', function handleClick(event){
+        console.log('box clicked ', event);
+        voteButton.setAttribute('value', 'asd');
+    });
+}
 
 // new
