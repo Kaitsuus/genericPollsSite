@@ -1,32 +1,78 @@
-
+/*
 const addPoll = document.getElementById('lisaa')
 const poll = document.querySelector('poll')
 const li = document.createElement("li");
 const ul = document.createElement("ul");
+const form = document.createElement('form')
+const polls = document.getElementById('polls')
+*/
 
-addPoll.addEventListener('click', () => {
 
-    ul.appendChild(li);
-})
 
-var form = document.getElementById("form");
+function addOption(){
+    // add voting option //
+    let input = document.createElement('input')
+    let li = document.createElement('li');
+    document.querySelector('#options').appendChild(li);
+    li.appendChild(input)
+    input.setAttribute('type', 'text');
+    input.setAttribute('class', 'option');
+    input.setAttribute('value', 'give option');
+}
+function removeOption(){
+    // remove option //
+    let element = document.querySelector('.option')
+    let liElemenet = document.querySelector('li')
+    liElemenet.remove()
+    element.remove()
+}
+function luo(){
+    // create ul & h2 elements //
+    let ul = document.createElement("ul");
+    let h2 = document.createElement("h2");
+    let question = document.querySelector('.pollQ').value;
+    document.querySelector('.poll').appendChild(ul);
+    ul.appendChild(h2)
+    h2.textContent = question
+    console.log(document.querySelectorAll('.option'));
+    let options = document.querySelectorAll('.option')
+    // create new poll //
+    for (let i = 0; i< options.length; i++){
+        let li = document.createElement('li');
+        let input = document.createElement('input')
+        document.querySelector('.poll').appendChild(ul);
+        console.log(options[i].value)
+        ul.appendChild(li)
+        li.appendChild(input)
+        input.setAttribute('type', 'button')
+        input.setAttribute('value', options[i].value)
+        input.setAttribute('class', 'voteButton')
+        removeOption();
+    }
 
-function newLi() {
-    return document.createElement("li");
+}
+/*
+addPoll.addEventListener("click", function(){
+    document.querySelector('#vaihtoehdot').appendChild(input);
+    input.setAttribute('type', 'text', 'value', 'anna vaihtoehto');
+});*/
+
+/*
+function newForm() {
+    return document.createElement('form');
     }
 
 addPoll.addEventListener("click", function(){
-    //Create a separate <ul> each time, give it a class, and add it.
-    ul.class = "formList";
+    polls.appendChild(form)
     form.appendChild(ul);
-
-    //create new <li>'s and append them
-    formList.appendChild(newLi());
-    formList.appendChild(newLi());
-    formList.appendChild(newLi());
-
-    //
+    ul.appendChild(li);
+    li.appendChild(input)
+    input.setAttribute('type', 'text');
+    ul.appendChild(button)
+    
+    
 })
+*/
 
 /*/ lisää testeja //
 

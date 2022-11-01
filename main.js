@@ -12,7 +12,7 @@ close.addEventListener('click', () => {
 
 
 // RegisterationPopUp //
-const registeration = document.getElementById('rekisteroidu')
+const registeration = document.getElementById('register')
 const closePop = document.getElementById('closeForm')
 const regPopUp = document.querySelector('.formContainer')
 
@@ -25,7 +25,7 @@ closePop.addEventListener('click', () => {
 });
 
 // LogInPopUp //
-const logIn = document.getElementById('kirjaudu')
+const logIn = document.getElementById('login')
 const closeLogInPop = document.getElementById('close2Form')
 const LogInPopUp = document.querySelector('.form2Container')
 
@@ -40,7 +40,7 @@ logIn.addEventListener('click', () => {
 // Registeration //
 const registerUser = e => {
     let username = document.getElementById('id').value,
-        password = document.getElementById('salasana').value,
+        password = document.getElementById('password').value,
         email = document.getElementById('email').value;
     let formData = JSON.parse(localStorage.getItem('formData')) || [];
 
@@ -67,15 +67,15 @@ const registerUser = e => {
 let username = document.getElementById('idLogIn').value
 function signIn(e) {
     let username = document.getElementById('idLogIn').value,
-        password = document.getElementById('salasanaLogIn').value;
+        password = document.getElementById('passwordLogIn').value;
     let formData = JSON.parse(localStorage.getItem('formData')) || [];
     let exist = formData.length && 
     JSON.parse(localStorage.getItem('formData')).some(data => data.username.toLowerCase() == username && data.password.toLowerCase() == password);
     if(username == 'admin' && password == 'asd123'){
         console.log('admin logged in')
         sessionStorage.setItem('currentLoggedIn','admin');
-        document.getElementById('omatili').style.display='list-item'
-        document.getElementById('kirjaudu').style.display='none'
+        document.getElementById('myAccount').style.display='list-item'
+        document.getElementById('login').style.display='none'
         LogInPopUp.classList.remove('open-logInPopUp')
         return;
     }
@@ -85,8 +85,8 @@ function signIn(e) {
     else{
         sessionStorage.setItem('currentLoggedIn',username);
         console.log(username)
-        document.getElementById('omatili').style.display='list-item'
-        document.getElementById('kirjaudu').style.display='none'
+        document.getElementById('myAccount').style.display='list-item'
+        document.getElementById('login').style.display='none'
         LogInPopUp.classList.remove('open-logInPopUp')
         return;
     }
@@ -96,24 +96,24 @@ let loggedin = sessionStorage.getItem('currentLoggedIn');
 
 function testUserOnline(){
     if (sessionStorage.getItem('currentLoggedIn') === 'admin'){
-        document.getElementById('omatili').style.display='list-item'
-        document.getElementById('kirjaudu').style.display='none'
+        document.getElementById('myAccount').style.display='list-item'
+        document.getElementById('login').style.display='none'
         document.getElementById('logout').style.display='list-item'
-        document.getElementById('rekisteroidu').style.display='none'
-        document.getElementById('userInfo').innerHTML = ' Admin'
+        document.getElementById('register').style.display='none'
+        //document.getElementById('userInfo').innerHTML = ' Admin'
     }
     if (sessionStorage.getItem('currentLoggedIn',username)){
-        document.getElementById('omatili').style.display='list-item'
-        document.getElementById('kirjaudu').style.display='none'
+        document.getElementById('myAccount').style.display='list-item'
+        document.getElementById('login').style.display='none'
         document.getElementById('logout').style.display='list-item'
-        document.getElementById('rekisteroidu').style.display='none'
-        document.getElementById('userInfo').innerHTML = ' ' + sessionStorage.getItem('currentLoggedIn',username);
+        document.getElementById('register').style.display='none'
+        //document.getElementById('userInfo').innerHTML = ' ' + sessionStorage.getItem('currentLoggedIn',username);
     }
     else{
-        document.getElementById('omatili').style.display='none'
-        document.getElementById('kirjaudu').style.display='list-item'
+        document.getElementById('myAccount').style.display='none'
+        document.getElementById('login').style.display='list-item'
         document.getElementById('logout').style.display='none'
-        document.getElementById('rekisteroidu').style.display='list-item'
+        document.getElementById('register').style.display='list-item'
     }
 }
 testUserOnline()
@@ -124,12 +124,15 @@ function logOut(){
 
 // voting //
 
-let userVoted = document.getElementsByClassName('voteButton');
+let userVoted = document.querySelector('.voteButton')
+userVoted.addEventListener('click', function handleClick(event){
+    console.log('box clicked ', event);
+    userVoted.setAttribute('value', 'asd');
+});
+userVoted.addEventListener("click", function(){
+    console.log('box clicked');
+    userVoted.setAttribute('value', 'asd');
+    
+});
 
-for (let voteButton of userVoted) {
-    voteButton.addEventListener('click', function handleClick(event){
-        console.log('box clicked ', event);
-        voteButton.setAttribute('value', 'asd');
-    });
-}
-
+// new

@@ -8,16 +8,17 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="poll">
-        <form action="#" id="form">
-            <ul id="list">
-                <li>
-                    <input type="text">
-                </li>
-            </ul>
-            <button id="lisaa">Lisää</button>
-            <button>Poista</button>
-        </form>
+    <div class="poll" id="polls">
+        <h1>New poll</h1>
+        <ul id="options">
+            <input type="text" value="Poll question?" class="pollQ" id="pollQ">
+            <li>
+                <input type="text" value="give option" class="option">
+            </li>
+        </ul>
+            <button id="add" onclick="addOption();">Add option</button>
+            <button id="remove" onclick="removeOption();">Poista vaihtoehto</button>
+            <button id="create" onclick="luo();">Create Poll</button>
     </div>
 
     <script src="test.js"></script>

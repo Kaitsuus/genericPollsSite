@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
-    <title>Omatili</title>
+    <title>MyAccount</title>
 </head>
 <body>
     <div class="header">
@@ -22,9 +22,9 @@
         <nav>
             <ul>
                 <li><a href="polls.html">Polls</a></li>
-                <li><a href="#" id="rekisteroidu">Rekisteröidy</a></li>
-                <li><a href="#" id="kirjaudu">Kirjaudu</a></li>
-                <li><a href="omatili.html" id="omatili">Omatili</a></li>
+                <li><a href="#" id="register">New user</a></li>
+                <li><a href="#" id="login">Login</a></li>
+                <li><a href="omatili.html" id="myAccount">My account</a></li>
                 <li><a href="index.html" id="logout" onclick="logOut();">Log out</a></li>
             </ul>
             <a href="#" id="close">CLOSE</a>
@@ -45,48 +45,48 @@
         </table>
     </div>
 
-
     <div class="formContainer">
         <form id="lomake" role="form" onsubmit="registerUser(event);" autocomplete="off">
-            <div id="otsikot">
-            <h1 id="lomakeH1">Rekisteröitymislomake</h1>
+            <div id="headers">
+            <h1 id="lomakeH1">Registration form</h1>
             </div>
-            <div class="kayttaja">
-                <input type="text" id="id": placeholder="Käyttäjätunnus">
+            <div class="user">
+                <input type="text" id="id": placeholder="Username">
             </div>
-            <div class="salasana">
-                <input type="password" id="salasana": placeholder="Salasana">
+            <div class="password">
+                <input type="password" id="password": placeholder="password">
             </div>
             <div class="email">
                 <input type="email" id="email" placeholder="Email">
             </div>
             <div>
-                <button id="submit">Rekisteröidy</button>
+                <button id="submit">Register</button>
             </div>
             <div class="closeForm" id="closeForm">+</div>
         </form>
     </div>
 
     <div class="form2Container">
-        <form id="lomakeKirjaudu" role="form" onsubmit="signIn(event);" autocomplete="off">
-            <div id="otsikot">
-            <h1>Kirjaudu</h1>
+        <form id="loginForm" role="form" onsubmit="signIn(event);" autocomplete="off">
+            <div id="headers">
+            <h1>Login</h1>
             </div>
-            <div class="kayttaja">
-                <input type="text" id="idLogIn": placeholder="Käyttäjätunnus">
+            <div class="user">
+                <input type="text" id="idLogIn": placeholder="Username">
             </div>
-            <div class="salasana">
-                <input type="password" id="salasanaLogIn": placeholder="Salasana">
-            </div>
-            <div>
-                <button id="kirjaudu" type="submit">Kirjaudu</button>
+            <div class="password">
+                <input type="password" id="passwordLogIn": placeholder="Password">
             </div>
             <div>
-                <button id="forgot" onclick="btn();">Unohdin salasanan</button>
+                <button id="Login" type="submit">Login</button>
+            </div>
+            <div>
+                <button id="forgot" onclick="btn();">Forgot password?</button>
             </div>
             <div class="close2Form" id="close2Form">+</div>
         </form>
     </div>
+
 
     <footer>
         Copyright &copy; 2022 <span>Kai Jukarainen</span>
