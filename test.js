@@ -26,6 +26,14 @@ function removeOption(){
     liElemenet.remove()
     element.remove()
 }
+
+let testPoll = {
+    question:['asd'],
+    answers:['qwerty']
+};
+
+
+
 function luo(){
     // create ul & h2 elements //
     let ul = document.createElement("ul");
@@ -47,10 +55,59 @@ function luo(){
         input.setAttribute('type', 'button')
         input.setAttribute('value', options[i].value)
         input.setAttribute('class', 'voteButton')
+        let x = 0;
+        // add click & calculate clicks function for new buttons //
+        input.addEventListener('click', function(){
+            x++;
+            console.log('clicked ' + options[i].value)
+            input.setAttribute('value', options[i].value + ' ' + 'Votes: ' + x)
+        });
+        // clear create a poll //
         removeOption();
     }
 
 }
+let data = JSON.parse(localStorage.getItem('data')) || [];
+function ls(){
+    data.push({testPoll});
+    localStorage.setItem('data', JSON.stringify(data));
+}
+ls()
+function luoU(){
+    // create ul & h2 elements //
+    let ul = document.createElement("ul");
+    let h2 = document.createElement("h2");
+    let questions = document.querySelector('.pollQ').value;
+    let options = document.querySelectorAll('.option')
+    ul.appendChild(h2)
+    h2.textContent = questions
+    testThis = {
+        question:[],
+        answers:[]
+    }
+    testThis.question.push(questions)
+    for (let i = 0; i< options.length; i++){
+        let newA = options[i].value;
+        testThis.answers.push(newA)
+        removeOption();
+
+    }
+    data.push({testThis})
+    localStorage.setItem('data', JSON.stringify(data));
+    console.log(testPoll)
+
+}
+function parsedata(){
+    JSON.parse(localStorage.data)
+    JSON.parse(localStorage.getItem('data'))
+
+}
+
+
+
+
+
+
 /*
 addPoll.addEventListener("click", function(){
     document.querySelector('#vaihtoehdot').appendChild(input);
