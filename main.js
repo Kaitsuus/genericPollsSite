@@ -122,15 +122,3 @@ function logOut(){
     sessionStorage.clear()
 }
 
-// voting //
-
-let userVoted = document.getElementsByClassName('voteButton');
-
-for (let voteButton of userVoted) {
-    voteButton.addEventListener('click', function handleClick(event){
-        console.log('box clicked ', event);
-        voteButton.setAttribute('value', 'asd');
-    });
-}
-
-// new

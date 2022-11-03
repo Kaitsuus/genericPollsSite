@@ -39,23 +39,20 @@
 
     </div>
 
-    <div class="voteContainer">
-        <ul id="poll">
-            <h2> poll1</h2>
-            <input type="button" value="vote1" class="voteButton">
-            <input type="button" value="vote2" class="voteButton">
-            <input type="button" value="vote3" class="voteButton">
-            
+    <div class="poll" id="polls">
+        <ul id="options">
+            <h1>New poll</h2>
+            <button id="add" onclick="addOption();">Add option</button>
+            <button id="remove" onclick="removeOption();">Poista vaihtoehto</button>
+            <button id="create" onclick="createApoll();">Create Poll</button>
+            <input type="text" value="Poll question?" class="pollQ" id="pollQ">
+            <li>
+                <input type="text" value="give option" class="option">
+            </li>
         </ul>
-        <ul id="poll2">
-            <h2> poll2</h2>
-            <input id="vote1" type="button" value="vote1">
-            <input id="vote2" type="button" value="vote2">
-            <input id="vote3" type="button" value="vote3">
-        </ul>
-
 
     </div>
+    <script src="polls.js"></script>
 
     <div class="formContainer">
         <form id="lomake" role="form" onsubmit="registerUser(event);" autocomplete="off">
