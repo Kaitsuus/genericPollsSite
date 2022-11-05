@@ -130,7 +130,7 @@ function testUserOnline(){
         document.getElementById('options').style.display='grid'
         
         userIsOnline();
-        console.log('user is online ' + userOffline)
+        console.log('user is offline ' + userOffline)
         //document.getElementById('userInfo').innerHTML = ' Admin'
     }
     if (sessionStorage.getItem('currentLoggedIn')){
@@ -140,7 +140,7 @@ function testUserOnline(){
         document.getElementById('logout').style.display='list-item'
         document.getElementById('register').style.display='none'
         userIsOnline();
-        console.log('user is online ' + userOffline)
+        console.log('user is offline ' + userOffline)
         //document.getElementById('userInfo').innerHTML = ' ' + sessionStorage.getItem('currentLoggedIn',username);
     }
     else{
