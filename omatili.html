@@ -38,15 +38,8 @@
 
     </div>
 
-    <div class="userInfo">
-        <table id="userTable">
-            <summary>Username: </summary>
-            <p id="userInfo">user goes here!</p>
-        </table>
-    </div>
-
     <div class="formContainer">
-        <form id="lomake" role="form" onsubmit="registerUser(event);" autocomplete="off">
+        <form id="lomake">
             <div id="headers">
             <h1 id="lomakeH1">Registration form</h1>
             </div>
@@ -60,14 +53,14 @@
                 <input type="email" id="email" placeholder="Email">
             </div>
             <div>
-                <button id="submit">Register</button>
+                <button id="submit" onclick="registerUser();">Register</button>
             </div>
             <div class="closeForm" id="closeForm">+</div>
         </form>
     </div>
 
     <div class="form2Container">
-        <form id="loginForm" role="form" onsubmit="signIn(event);" autocomplete="off">
+        <form id="loginForm">
             <div id="headers">
             <h1>Login</h1>
             </div>
@@ -78,7 +71,7 @@
                 <input type="password" id="passwordLogIn": placeholder="Password">
             </div>
             <div>
-                <button id="Login" type="submit">Login</button>
+                <button id="Login" onclick="signIn();">Login</button>
             </div>
             <div>
                 <button id="forgot" onclick="btn();">Forgot password?</button>

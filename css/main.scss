@@ -239,6 +239,7 @@ display: none;
 
     }
     #options{
+        display: none;
         background-color: #FFA8DC;
         padding: 1em;
         text-align: center;
@@ -262,6 +263,9 @@ display: none;
         font-weight: bold;
         cursor: pointer;
 
+    }
+    .deletePoll{
+        
     }
 
 }
