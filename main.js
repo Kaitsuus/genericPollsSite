@@ -38,39 +38,51 @@ logIn.addEventListener('click', () => {
 });
 
 // Registeration //
-const registerUser = e => {
-    let username = document.getElementById('id').value,
-        password = document.getElementById('password').value,
-        email = document.getElementById('email').value;
-    let formData = JSON.parse(localStorage.getItem('formData')) || [];
-
-    let exist = formData.length && JSON.parse(localStorage.getItem('formData')).some(data => 
-        data.username.toLowerCase() == username.toLowerCase()
-        );
-
-    if(!exist){
-        formData.push({username, password, email});
-        localStorage.setItem('formData', JSON.stringify(formData));
-        console.log(formData);
+let userData = JSON.parse(localStorage.getItem('userData')) || [];
+function registerUser(){
+    let username = document.getElementById('id').value
+    let password = document.getElementById('password').value
+    let email = document.getElementById('email').value;
+    const newUser ={
+        username,
+        password,
+        email,
+        voted:[]
+    }
+    if (localStorage.getItem("userData") === null){
+        userData.push({newUser});
+        localStorage.setItem('userData', JSON.stringify(userData));
         document.getElementById('lomakeH1').innerHTML = ('Kiitos rekisteröitymisestä')
         setTimeout(() => regPopUp.classList.remove('open-registerationPopUp'), 1000);
         document.getElementById('lomake').reset();
-    }
-    else{
-        document.getElementById('lomakeH1').innerHTML = ('Olet jo rekisteröitynyt!')
-        setTimeout(() => regPopUp.classList.remove('open-registerationPopUp'), 1000);
-    }
-    e.preventDefault();
+    }else{
+        for(let i = 0; i < userData.length; i++){
+            console.log(userData[i].newUser.username)
+            if(userData[i].newUser.username === document.getElementById('id').value){
+                console.log(username + ' on olemassa')
+                document.getElementById('lomakeH1').innerHTML = ('Olet jo rekisteröitynyt!')
+                setTimeout(() => regPopUp.classList.remove('open-registerationPopUp'), 1000);
+            }
+            else{
+                userData.push({newUser});
+                localStorage.setItem('userData', JSON.stringify(userData));
+                document.getElementById('lomakeH1').innerHTML = ('Kiitos rekisteröitymisestä')
+                setTimeout(() => regPopUp.classList.remove('open-registerationPopUp'), 1000);
+                document.getElementById('lomake').reset();
+                return;
+            }
+        }
 
+    }
 }
-// Login //
-let username = document.getElementById('idLogIn').value
-function signIn(e) {
-    let username = document.getElementById('idLogIn').value,
-        password = document.getElementById('passwordLogIn').value;
-    let formData = JSON.parse(localStorage.getItem('formData')) || [];
-    let exist = formData.length && 
-    JSON.parse(localStorage.getItem('formData')).some(data => data.username.toLowerCase() == username && data.password.toLowerCase() == password);
+
+
+// login //
+function signIn(){
+    let userData = JSON.parse(localStorage.getItem('userData')) || [];
+    let username = document.getElementById('idLogIn').value
+    let password = document.getElementById('passwordLogIn').value
+
     if(username == 'admin' && password == 'asd123'){
         console.log('admin logged in')
         sessionStorage.setItem('currentLoggedIn','admin');
@@ -78,35 +90,57 @@ function signIn(e) {
         document.getElementById('login').style.display='none'
         LogInPopUp.classList.remove('open-logInPopUp')
         return;
+    }else{
+        for(let i = 0; i < userData.length; i++){
+            console.log(userData[i].newUser.username)
+            if(userData[i].newUser.username === username && userData[i].newUser.password === password){
+                sessionStorage.setItem('currentLoggedIn',username);
+                document.getElementById('myAccount').style.display='list-item'
+                document.getElementById('login').style.display='none'
+                LogInPopUp.classList.remove('open-logInPopUp')
+                return;
+            }else{
+                console.log('incorrect username or password')
+                return;
+            }
+        }
     }
-    else if(!exist){
-        console.log('incorrect username or password')
-    }
-    else{
-        sessionStorage.setItem('currentLoggedIn',username);
-        console.log(username)
-        document.getElementById('myAccount').style.display='list-item'
-        document.getElementById('login').style.display='none'
-        LogInPopUp.classList.remove('open-logInPopUp')
-        return;
-    }
-    e.preventDefault();
 }
-let loggedin = sessionStorage.getItem('currentLoggedIn');
 
+
+
+// User online boolean //
+
+let userOffline = true;
+
+function userIsOnline(){
+    userOffline = false;
+}
+function userIsOffline(){
+    userOffline = true;
+}
+
+let loggedin = sessionStorage.getItem('currentLoggedIn');
 function testUserOnline(){
     if (sessionStorage.getItem('currentLoggedIn') === 'admin'){
         document.getElementById('myAccount').style.display='list-item'
         document.getElementById('login').style.display='none'
         document.getElementById('logout').style.display='list-item'
         document.getElementById('register').style.display='none'
+        document.getElementById('options').style.display='grid'
+        
+        userIsOnline();
+        console.log('user is online ' + userOffline)
         //document.getElementById('userInfo').innerHTML = ' Admin'
     }
-    if (sessionStorage.getItem('currentLoggedIn',username)){
+    if (sessionStorage.getItem('currentLoggedIn')){
+        
         document.getElementById('myAccount').style.display='list-item'
         document.getElementById('login').style.display='none'
         document.getElementById('logout').style.display='list-item'
         document.getElementById('register').style.display='none'
+        userIsOnline();
+        console.log('user is online ' + userOffline)
         //document.getElementById('userInfo').innerHTML = ' ' + sessionStorage.getItem('currentLoggedIn',username);
     }
     else{
@@ -114,11 +148,145 @@ function testUserOnline(){
         document.getElementById('login').style.display='list-item'
         document.getElementById('logout').style.display='none'
         document.getElementById('register').style.display='list-item'
+        userIsOffline()
+        console.log('user is offline ' + userOffline)
     }
 }
 testUserOnline()
 
 function logOut(){
     sessionStorage.clear()
+    userIsOffline()
+    console.log('user is offline ' + userOffline)
 }
+
+
+// voting system //
+
+function addOption(){
+    // add voting option //
+    let input = document.createElement('input')
+    let li = document.createElement('li');
+    document.querySelector('#options').appendChild(li);
+    li.appendChild(input)
+    input.setAttribute('type', 'text');
+    input.setAttribute('class', 'option');
+    input.setAttribute('value', 'give option');
+}
+function removeOption(){
+    // remove option //
+    let element = document.querySelector('.option')
+    let liElemenet = document.querySelector('li')
+    liElemenet.remove()
+    element.remove()
+}
+
+
+
+let data = JSON.parse(localStorage.getItem('data')) || [];
+function ls(){
+    data.push({testPoll});
+    localStorage.setItem('data', JSON.stringify(data));
+}
+
+function createApoll(){
+    let ul = document.createElement("ul");
+    let h2 = document.createElement("h2");
+    let questions = document.querySelector('.pollQ').value;
+    let options = document.querySelectorAll('.option')
+    document.querySelector('.poll').appendChild(ul);
+    ul.appendChild(h2)
+    h2.textContent = questions
+    // create new poll for localStorage //
+    const newPoll = {
+        questions,
+        answers:[],
+        value:[]
+    }
+    data.push({newPoll})
+    localStorage.setItem('data', JSON.stringify(data))
+    // create options for new poll //
+    for (let i = 0; i< options.length; i++){
+        let newOption = options[i].value;
+        newPoll.answers.push(newOption)
+        newPoll.value.push(0)
+        localStorage.setItem('data', JSON.stringify(data));
+    
+        // create new options for DOM //
+        let x = 0
+        let li = document.createElement('li');
+        let input = document.createElement('input')
+        ul.appendChild(li)
+        li.appendChild(input)
+        input.setAttribute('type', 'button')
+        input.setAttribute('value', newOption + ' ' + 'Votes: ' + x)
+        input.setAttribute('class', 'voteButton')
+        
+        // add click & calculate clicks function for new buttons //
+        input.addEventListener('click', function(){
+            x++;
+            console.log('clicked ' + newOption)
+            input.setAttribute('value', newOption + ' ' + 'Votes: ' + x)
+        });
+
+    }
+    console.log(data)
+    removeOption();
+
+}
+    // create polls for dom on load //
+function parseData(){
+    let data = JSON.parse(localStorage.getItem('data')) || [];
+    // create polls structure from localStorage to DOM //
+    for (let i = 0; i< data.length; i++){
+        let ul = document.createElement("ul");
+        let h2 = document.createElement("h2");
+        let button = document.createElement("button");
+
+        // create delete poll button //
+        if (sessionStorage.getItem('currentLoggedIn') === 'admin'){
+            button.setAttribute('class', 'deletePoll')
+            button.setAttribute('id', 'deletePoll')
+            button.textContent = 'Delete'
+            ul.appendChild(button)
+        
+        // add delete function to button //
+            button.addEventListener('click', function(){
+                console.log('clicked ' + [i] + 'delete button')
+                data.splice([i], 1)
+                console.log(data)
+                localStorage.setItem('data', JSON.stringify(data));
+            });
+        }
+        // create questions for polls //
+        console.log(data[i])
+        document.querySelector('.poll').appendChild(ul);
+        ul.appendChild(h2)
+        h2.textContent = data[i].newPoll.questions
+
+        // create options for polls to DOM //
+        for (let y = 0; y < data[i].newPoll.answers.length; y++){
+            let x = 0;
+            let li = document.createElement('li');
+            let input = document.createElement('input')
+            ul.appendChild(li)
+            li.appendChild(input)
+            input.setAttribute('type', 'button')
+            input.setAttribute('class', 'voteButton')
+
+            // create voting function for buttons //
+            input.addEventListener('click', function(){
+                if (userOffline == false){
+                    data[i].newPoll.value[y]++
+                    localStorage.setItem('data', JSON.stringify(data));
+                    input.setAttribute('value', data[i].newPoll.answers[y] + ' ' + 'Votes: ' + data[i].newPoll.value[y])
+                }
+            });
+            input.setAttribute('value', data[i].newPoll.answers[y] + ' ' + 'Votes: ' + data[i].newPoll.value[y])
+        
+        }
+    }
+
+}
+
 
