@@ -106,8 +106,21 @@ function signIn(){
         }
     }
 }
-
-
+let position = NaN
+function currentUserIndex(){
+    if(sessionStorage.getItem('currentLoggedIn')!= null && sessionStorage.getItem('currentLoggedIn') != 'admin'){
+        let currentUser = sessionStorage.getItem('currentLoggedIn')
+        let userData = JSON.parse(localStorage.getItem('userData')) || [];
+        for(let i = 0; i < userData.length; i++){
+            if(userData[i].newUser.username === currentUser){
+                console.log(i)
+                position = i
+                console.log(position)
+            }
+        }
+    }
+}
+currentUserIndex()
 
 // User online boolean //
 
@@ -133,8 +146,7 @@ function testUserOnline(){
         console.log('user is offline ' + userOffline)
         //document.getElementById('userInfo').innerHTML = ' Admin'
     }
-    if (sessionStorage.getItem('currentLoggedIn')){
-        
+    if (sessionStorage.getItem('currentLoggedIn')!= null){
         document.getElementById('myAccount').style.display='list-item'
         document.getElementById('login').style.display='none'
         document.getElementById('logout').style.display='list-item'
@@ -237,6 +249,7 @@ function createApoll(){
     // create polls for dom on load //
 function parseData(){
     let data = JSON.parse(localStorage.getItem('data')) || [];
+    let userData = JSON.parse(localStorage.getItem('userData')) || [];
     // create polls structure from localStorage to DOM //
     for (let i = 0; i< data.length; i++){
         let ul = document.createElement("ul");
@@ -266,7 +279,6 @@ function parseData(){
 
         // create options for polls to DOM //
         for (let y = 0; y < data[i].newPoll.answers.length; y++){
-            let x = 0;
             let li = document.createElement('li');
             let input = document.createElement('input')
             ul.appendChild(li)
@@ -276,10 +288,33 @@ function parseData(){
 
             // create voting function for buttons //
             input.addEventListener('click', function(){
+                //test if loggedin//
                 if (userOffline == false){
-                    data[i].newPoll.value[y]++
-                    localStorage.setItem('data', JSON.stringify(data));
-                    input.setAttribute('value', data[i].newPoll.answers[y] + ' ' + 'Votes: ' + data[i].newPoll.value[y])
+                    //test if admin//
+                    if(sessionStorage.getItem('currentLoggedIn') != 'admin'){
+                        //test if allready voted//
+                        for(let l = 0; l < userData[position].newUser.voted.length; l++){
+                            //inform if allready voted//
+                            if(userData[position].newUser.voted.includes(data[i].newPoll.questions)){
+                                alert('Olet jo äänestänyt tätä')
+                                return;
+                            }else{
+                                //vote and save data//
+                                userData[position].newUser.voted.push(data[i].newPoll.questions)
+                                localStorage.setItem('userData', JSON.stringify(userData));
+                                data[i].newPoll.value[y]++
+                                localStorage.setItem('data', JSON.stringify(data));
+                                input.setAttribute('value', data[i].newPoll.answers[y] + ' ' + 'Votes: ' + data[i].newPoll.value[y])
+                                return;
+                            }
+
+                        }
+                    }else{
+                        // you are admin, you dont have rules //
+                        data[i].newPoll.value[y]++
+                        localStorage.setItem('data', JSON.stringify(data));
+                        input.setAttribute('value', data[i].newPoll.answers[y] + ' ' + 'Votes: ' + data[i].newPoll.value[y])
+                    }
                 }
             });
             input.setAttribute('value', data[i].newPoll.answers[y] + ' ' + 'Votes: ' + data[i].newPoll.value[y])
@@ -287,6 +322,35 @@ function parseData(){
         }
     }
 
+}
+
+// Frontpage Polls //
+function frontPagePoll(){
+    let data = JSON.parse(localStorage.getItem('data')) || [];
+    let userData = JSON.parse(localStorage.getItem('userData')) || [];
+    // create polls structure from localStorage to DOM //
+    for (let i = 0; i< data.length; i++){
+        let ul = document.createElement("ul");
+        let h2 = document.createElement("h2");
+        let button = document.createElement("button");
+        // create questions for polls //
+        console.log(data[i])
+        document.querySelector('.pollsContainer').appendChild(ul);
+        ul.appendChild(h2)
+        h2.textContent = data[i].newPoll.questions
+
+        // create options for polls to DOM //
+        for (let y = 0; y < data[i].newPoll.answers.length; y++){
+            let li = document.createElement('li');
+            let input = document.createElement('input')
+            ul.appendChild(li)
+            li.appendChild(input)
+            input.setAttribute('type', 'button')
+            input.setAttribute('class', 'voteButton')
+            input.setAttribute('value', data[i].newPoll.answers[y] + ' ' + 'Votes: ' + data[i].newPoll.value[y])
+        }
+
+    }
 }
 
 

@@ -90,51 +90,38 @@ nav{
     padding-top: 5em;
     text-align: center;
     font-family: 'Dancing Script', cursive;
+    text-shadow: 0 0 30px #e60073;
     color: white;
     font-size: 30px;
 }
 .open-nav{
     transform: translateX(0%);
 }
-.pol1{
-    display: block;
-    height: 6em;
-    background-color: #FFA8DC;
-    text-align: center;
-    margin-left: 2em;
-    margin-right: 2em;
-    .content{
+.pollsContainer{
+    display: flex;
+    justify-content: center;
+    ul{
+        width: 80%;
+        columns: 2;
+        column-gap: 0;
+    }
+    li{
+        height: 80%;
+        background-color: #FFA8DC;
         padding-top: 1.5em;
-        
+        text-align: center;
+        list-style-type: none;
+        span{
+            font-size: 30px;
+            margin-bottom: 2em;
+            color: #8B73FF;
+            font-weight: bolder;
+        }
     }
-    a{
-        font-size: 2rem;
-        font-weight: bold;
-        color: #8B73FF;
+    #other{
+        background-color: #FFFF;
     }
-}
-.pol2{
-    margin-top: 1em;
-    display: block;
-    height: 6em;
-    background-color: white;
-    text-align: center;
-    margin-left: 2em;
-    margin-right: 2em;
-    .content{
-        padding-top: 1.5em;
-    }
-    a{
-        font-size: 2rem;
-        font-weight: bold;
-        color: #8B73FF;
-    }
-}
-.pol3{
-display: none;
-}
-.pol4{
-    display: none;
+    
 }
 // Registeration // 
 .formContainer{
@@ -313,66 +300,47 @@ display: none;
     body{
         height: 100vh;
     }
-    .fillTextLeft{
-        font-family: 'Dancing Script', cursive;
-        color: white;
-        font-size: 50px;
-        width: 50%;
-        height: 50%;
-    }
+    .screen{
+        overflow: hidden;
+        margin-top: 15em;
+        display: flex;
+        columns: 2;
+        column-gap: 0;
+        justify-content: center;
+        .fillTextLeft{
+            width: 80%;
+            margin-left: -10em;
+            font-family: 'Dancing Script', cursive;
+            color: white;
+            font-size: 50px;
+            margin-top: -5em;
+            margin-right: -5em;
+        }
 
-    .pollsContainer{
-        display: grid;
-        grid-template-columns: repeat(2, auto);
-        float: right;
-        margin-top: -25%;
-        margin-right: 4em;
-        position: relative;
-        
-        .pol1{
-            width: 22em;
-            height: 14em;
-            position: relative;
-            margin: 0;
-        }
-        .pol2{
-            width: 22em;
-            height: 14em;
-            margin: 0;
-        }
-        .pol3{
-
-            display: block;
-            width: 22em;
-            height: 14em;
-            position: relative;
-            margin: 0;
-            background-color: white;
-            text-align: center;
-            .content{
-                padding-top: 1.5em;
+        .pollsContainer{
+            width: 50%;
+            margin-right: -18em;
+            margin-top: 2em;
+            ul{
+                columns: 2;
+                column-gap: 0;
             }
-            a{
-                font-size: 2rem;
-                font-weight: bold;
-                color: #8B73FF;
+            li{
+                display: flex;
+                background-color: #FFA8DC;
+                padding: 1em;
+                justify-content: center;
+                text-align: center;
+                list-style-type: none;
+                height: 40%;
+                span{
+                    margin-top: 2.5em;
+                }
             }
-        }
-        .pol4{
-            display: block;
-            width: 22em;
-            height: 14em;
-            margin: 0;
-            background-color: #FFA8DC;
-            text-align: center;
-            .content{
-                padding-top: 1.5em;
+            #other{
+                background-color: #FFFF;
             }
-            a{
-                font-size: 2rem;
-                font-weight: bold;
-                color: #8B73FF;
-            }
+            
         }
     }
 }
