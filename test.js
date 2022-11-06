@@ -1,29 +1,20 @@
-function signIn(){
-    let userData = JSON.parse(localStorage.getItem('userData')) || [];
-    let username = document.getElementById('idLogIn').value
-    let password = document.getElementById('passwordLogIn').value
-
-    if(username == 'admin' && password == 'asd123'){
-        console.log('admin logged in')
-        sessionStorage.setItem('currentLoggedIn','admin');
-        document.getElementById('myAccount').style.display='list-item'
-        document.getElementById('login').style.display='none'
-        LogInPopUp.classList.remove('open-logInPopUp')
-        return;
-    }else{
-        for(let i = 0; i < userData.length; i++){
-            console.log(userData[i].newUser.username)
-            if(userData[i].newUser.username === username && userData[i].newUser.password === password){
-                sessionStorage.setItem('currentLoggedIn',username);
-                document.getElementById('myAccount').style.display='list-item'
-                document.getElementById('login').style.display='none'
-                LogInPopUp.classList.remove('open-logInPopUp')
-                return;
-            }
-            else{
-                console.log('incorrect username or password')
-                return;
-            }
-        }
+function frontPagePoll(){
+    let data = JSON.parse(localStorage.getItem('data')) || [];
+    for (let i = 2; i< data.lenght; i++){
+        let ul = document.createElement("ul");
+        let h2 = document.createElement("h2");
+        document.querySelector('.poll').appendChild(ul);
+        ul.appendChild(h2)
+        h2.textContent = data[i].newPoll.questions
     }
+    for (let y = 0; y < data[i].newPoll.answers.length; y++){
+        let li = document.createElement('li');
+        let input = document.createElement('input')
+        ul.appendChild(li)
+        li.appendChild(input)
+        input.setAttribute('type', 'button')
+        input.setAttribute('class', 'voteButton')
+        input.setAttribute('value', data[i].newPoll.answers[y] + ' ' + 'Votes: ' + data[i].newPoll.value[y])
+    }
+    
 }
