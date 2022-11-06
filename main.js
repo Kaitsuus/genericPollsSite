@@ -106,6 +106,37 @@ function signIn(){
         }
     }
 }
+// password reset //
+function resetPassword(){
+    let userData = JSON.parse(localStorage.getItem('userData')) || [];
+    let input = document.createElement('input')
+    let button = document.createElement('button')
+    let div = document.createElement('div')
+    document.getElementById('forgot').style.display='none'
+
+    document.querySelector('.newPwd').appendChild(div)
+    div.appendChild(input)
+    div.appendChild(button)
+    input.setAttribute('id', 'emailToSend')
+    input.setAttribute('placeholder', 'email')
+    button.textContent = 'send new password'
+    button.addEventListener('click', function(){
+
+        for(let i = 0; i < userData.length; i++){
+            
+            if(userData[i].newUser.email == document.getElementById('emailToSend').value && userData[i].newUser.username == document.getElementById('idLogIn').value){
+                document.getElementById('logInHeader').innerHTML='Reset email has been sent!'
+                setTimeout(() => LogInPopUp.classList.remove('open-logInPopUp'), 1000);
+            }
+            else{
+                document.getElementById('logInHeader').innerHTML='Wrong username+email !'
+            }
+        }
+    });
+    
+
+}
+
 let position = NaN
 function currentUserIndex(){
     if(sessionStorage.getItem('currentLoggedIn')!= null && sessionStorage.getItem('currentLoggedIn') != 'admin'){
@@ -116,6 +147,12 @@ function currentUserIndex(){
                 console.log(i)
                 position = i
                 console.log(position)
+                document.getElementById('currentUsername').innerText= (currentUser);
+                document.getElementById('currentUserEmail').innerHTML=(userData[i].newUser.email)
+                document.getElementById('changePwd').addEventListener('click', function(){
+                    userData[i].newUser.password.value == document.getElementById('thisIsNewPwd').value;
+                    localStorage.setItem('userData', JSON.stringify(userData));
+                });
             }
         }
     }
@@ -132,6 +169,8 @@ function userIsOnline(){
 function userIsOffline(){
     userOffline = true;
 }
+
+
 
 let loggedin = sessionStorage.getItem('currentLoggedIn');
 function testUserOnline(){
@@ -169,7 +208,6 @@ testUserOnline()
 function logOut(){
     sessionStorage.clear()
     userIsOffline()
-    console.log('user is offline ' + userOffline)
 }
 
 
@@ -196,10 +234,7 @@ function removeOption(){
 
 
 let data = JSON.parse(localStorage.getItem('data')) || [];
-function ls(){
-    data.push({testPoll});
-    localStorage.setItem('data', JSON.stringify(data));
-}
+
 
 function createApoll(){
     let ul = document.createElement("ul");
@@ -324,33 +359,5 @@ function parseData(){
 
 }
 
-// Frontpage Polls //
-function frontPagePoll(){
-    let data = JSON.parse(localStorage.getItem('data')) || [];
-    let userData = JSON.parse(localStorage.getItem('userData')) || [];
-    // create polls structure from localStorage to DOM //
-    for (let i = 0; i< data.length; i++){
-        let ul = document.createElement("ul");
-        let h2 = document.createElement("h2");
-        let button = document.createElement("button");
-        // create questions for polls //
-        console.log(data[i])
-        document.querySelector('.pollsContainer').appendChild(ul);
-        ul.appendChild(h2)
-        h2.textContent = data[i].newPoll.questions
-
-        // create options for polls to DOM //
-        for (let y = 0; y < data[i].newPoll.answers.length; y++){
-            let li = document.createElement('li');
-            let input = document.createElement('input')
-            ul.appendChild(li)
-            li.appendChild(input)
-            input.setAttribute('type', 'button')
-            input.setAttribute('class', 'voteButton')
-            input.setAttribute('value', data[i].newPoll.answers[y] + ' ' + 'Votes: ' + data[i].newPoll.value[y])
-        }
-
-    }
-}
 
 

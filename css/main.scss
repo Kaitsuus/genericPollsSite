@@ -133,6 +133,9 @@ nav{
     display: none;
     justify-content: center;
     align-items: center;
+    h1{
+        font-size: 20px;
+    }
 
     #lomake{
         
@@ -182,6 +185,9 @@ nav{
         background-color: white;
         border-radius: 4px;
         text-align: center;
+        h1{
+            font-size: 20px;
+        }
         input{
             display: block;
             margin: 15px auto;
@@ -195,7 +201,7 @@ nav{
             
         }
         button{
-            margin-top: 5px;
+            margin-top: 10px;
         }
     }
     
@@ -253,12 +259,50 @@ nav{
     }
 
 }
-// omatili //
-.userInfo{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 30em;
+// myAccount //
+.mainsection{
+    margin-top: 20em;
+    margin-left: 10em;
+    .userInfo{
+        display: flex;
+        justify-content: center;
+        margin-left: 1em;
+        width: 80%;
+        font-family: 'Dancing Script', cursive;
+        font-size: 30px;
+        font-weight: bold;
+        border-radius: 15px;
+        background-color: rgba(255, 255, 255, 0.64);
+        box-shadow: 2px 2px 2px 10px rgba(255, 255, 255, 0.64);
+        li{
+            list-style-type: none;
+        }
+    }
+    .newPwd{
+        margin-top: 1em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 1em;
+        width: 80%;
+        font-size: 30px;
+        font-weight: bold;
+        border-radius: 15px;
+        box-shadow: 2px 2px 2px 10px rgba(255, 255, 255, 0.64);
+        background-color:   rgba(255, 255, 255, 0.64);
+        button{
+            border-radius: 15px;
+            background-color: #FFFF;
+            border-color: #FFFF;
+            font-weight: bold;
+        }
+        input{
+            border-radius: 15px;
+            margin-right: 1em;
+            border-color: #FFFF;
+        }
+
+    }
 }
 
 

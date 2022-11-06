@@ -88,7 +88,7 @@
     <div class="form2Container">
         <form id="loginForm">
             <div id="headers">
-            <h1>Login</h1>
+            <h1 id="logInHeader">Login</h1>
             </div>
             <div class="user">
                 <input type="text" id="idLogIn": placeholder="Username">
@@ -96,11 +96,14 @@
             <div class="password">
                 <input type="password" id="passwordLogIn": placeholder="Password">
             </div>
+            <div class="newPwd">
+
+            </div>
             <div>
                 <button id="Login" onclick="signIn();">Login</button>
             </div>
             <div>
-                <button id="forgot" onclick="btn();">Forgot password?</button>
+                <button id="forgot" onclick="resetPassword();">Forgot password?</button>
             </div>
             <div class="close2Form" id="close2Form">+</div>
         </form>
