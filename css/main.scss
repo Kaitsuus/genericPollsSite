@@ -1,6 +1,6 @@
 body{
     width: 100%;
-    height: 100vh;
+    height: 100%;
     background-color: #8B73FF;
     background-image: linear-gradient(to bottom right, #8B73FF, #FFBA73 );
     margin: 0;
@@ -84,44 +84,49 @@ nav{
     }
 }
 // Main page //
-.fillTextLeft{
-    display: block;
-    width: 100%;
-    padding-top: 5em;
-    text-align: center;
-    font-family: 'Dancing Script', cursive;
-    text-shadow: 0 0 30px #e60073;
-    color: white;
-    font-size: 30px;
-}
 .open-nav{
     transform: translateX(0%);
 }
-.pollsContainer{
-    display: flex;
-    justify-content: center;
-    ul{
-        width: 80%;
-        columns: 2;
-        column-gap: 0;
-    }
-    li{
-        height: 80%;
-        background-color: #FFA8DC;
-        padding-top: 1.5em;
+.screen{
+    width: 100%;
+    height: 100vh;
+
+    .fillTextLeft{
+        display: block;
+        width: 100%;
+        padding-top: 5em;
         text-align: center;
-        list-style-type: none;
-        span{
-            font-size: 30px;
-            margin-bottom: 2em;
-            color: #8B73FF;
-            font-weight: bolder;
+        font-family: 'Dancing Script', cursive;
+        text-shadow: 0 0 30px #e60073;
+        color: white;
+        font-size: 30px;
+    }
+    .pollsContainer{
+        display: flex;
+        justify-content: center;
+        ul{
+            width: 80%;
+            columns: 2;
+            column-gap: 0;
         }
+        li{
+            height: 80%;
+            background-color: #FFA8DC;
+            padding-top: 1.5em;
+            text-align: center;
+            list-style-type: none;
+            span{
+                font-size: 30px;
+                margin-bottom: 2em;
+                color: #8B73FF;
+                font-weight: bolder;
+            }
+        }
+        #other{
+            background-color: #FFFF;
+        }
+        
     }
-    #other{
-        background-color: #FFFF;
-    }
-    
 }
 // Registeration // 
 .formContainer{
@@ -151,7 +156,8 @@ nav{
         }
         .closeForm{
             float: right;
-            margin-top: -5.5em;
+            margin-top: -5em;
+            margin-right: -.2em;
             font-size: 42px;
             transform: rotate(45deg);
             cursor: pointer;
@@ -194,7 +200,8 @@ nav{
         }
         .close2Form{
             float: right;
-            margin-top: -5.5em;
+            margin-top: -4.6em;
+            margin-right: 0.2em;
             font-size: 42px;
             transform: rotate(45deg);
             cursor: pointer;
@@ -215,12 +222,13 @@ nav{
 // Polls //
 .poll{
     display: flex;
-    width: 100%px;
-    height: 300px;
+    width: 100%;
+    height: 100%;
     justify-content: center;
     align-items: center;
-    margin-top: 30em;
+    margin-top: 15em;
     flex-direction: column; 
+    margin-bottom: 5em;
 
     ul{
         background-color: #FFA8DC;
@@ -230,6 +238,11 @@ nav{
         box-shadow: 2px 2px 2px 10px rgba(255, 255, 255, 0.64);
         list-style-type: none;
 
+    }
+    .voteButton{
+        background-color: #FFFF;
+        color: #8B73FF;
+        border: none;
     }
     #options{
         display: none;
@@ -244,6 +257,10 @@ nav{
             margin-bottom: 1.5em;
             margin-left: .5em;
             margin-left: .5em;
+            border-radius: 15px;
+            background-color: #FFFF;
+            border-color: #FFFF;
+            font-weight: bold;
         }
     }
     input{
@@ -254,15 +271,26 @@ nav{
         font-family: 'Dancing Script', cursive;
         font-size: 30px;
         font-weight: bold;
+        text-align: center;
+        margin-top: 0.2em;
         cursor: pointer;
+        background-color: #FFFF;
+        color: #8B73FF;
+        border: none;
 
     }
 
 }
 // myAccount //
 .mainsection{
-    margin-top: 20em;
-    margin-left: 10em;
+    display: flex;
+    margin-top: 1em;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    
+    color: #8B73FF;
     .userInfo{
         display: flex;
         justify-content: center;
@@ -306,9 +334,9 @@ nav{
 }
 
 
-@media only screen and (min-width: 856px) {
+@media only screen and (min-width: 1103px) {
     body{
-        height: 100vh;
+        height: 100%;
     }
 
     #hamburger{
@@ -340,9 +368,10 @@ nav{
         }
     }
 }
+
 @media only screen and (min-width: 1250px) {
     body{
-        height: 100vh;
+        height: 100%;
     }
     .screen{
         overflow: hidden;
@@ -363,6 +392,7 @@ nav{
 
         .pollsContainer{
             width: 50%;
+            height: 60%;
             margin-right: -18em;
             margin-top: 2em;
             ul{

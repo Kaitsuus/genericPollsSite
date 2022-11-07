@@ -89,20 +89,27 @@ function signIn(){
         document.getElementById('myAccount').style.display='list-item'
         document.getElementById('login').style.display='none'
         LogInPopUp.classList.remove('open-logInPopUp')
+        window.location.reload();
         return;
     }else{
+        let userData = JSON.parse(localStorage.getItem('userData')) || [];
+        let usernameX = document.getElementById('idLogIn').value
+        let passwordX = document.getElementById('passwordLogIn').value
         for(let i = 0; i < userData.length; i++){
             console.log(userData[i].newUser.username)
-            if(userData[i].newUser.username === username && userData[i].newUser.password === password){
-                sessionStorage.setItem('currentLoggedIn',username);
-                document.getElementById('myAccount').style.display='list-item'
-                document.getElementById('login').style.display='none'
-                LogInPopUp.classList.remove('open-logInPopUp')
-                return;
-            }else{
-                console.log('incorrect username or password')
-                return;
+            if(userData[i].newUser.username == usernameX && userData[i].newUser.password == passwordX){
+            console.log('osui')
+            sessionStorage.setItem('currentLoggedIn',usernameX);
+            document.getElementById('myAccount').style.display='list-item'
+            document.getElementById('login').style.display='none'
+            LogInPopUp.classList.remove('open-logInPopUp')
+            window.location.reload();
+            return;
             }
+            else{
+                document.getElementById('logInHeader').textContent='incorrect Username or Password';
+            }
+            
         }
     }
 }
@@ -136,7 +143,7 @@ function resetPassword(){
     
 
 }
-
+// user position //
 let position = NaN
 function currentUserIndex(){
     if(sessionStorage.getItem('currentLoggedIn')!= null && sessionStorage.getItem('currentLoggedIn') != 'admin'){
@@ -147,17 +154,41 @@ function currentUserIndex(){
                 console.log(i)
                 position = i
                 console.log(position)
-                document.getElementById('currentUsername').innerText= (currentUser);
-                document.getElementById('currentUserEmail').innerHTML=(userData[i].newUser.email)
-                document.getElementById('changePwd').addEventListener('click', function(){
-                    userData[i].newUser.password.value == document.getElementById('thisIsNewPwd').value;
-                    localStorage.setItem('userData', JSON.stringify(userData));
-                });
             }
         }
     }
 }
 currentUserIndex()
+// userinfo for "Myaccount" //
+function currentUserInfo(){
+    if(sessionStorage.getItem('currentLoggedIn') == 'admin'){
+        document.getElementById('currentUsername').innerText= 'Welcome Admin';
+        document.getElementById('thisIsNewPwd').style.display='none';
+        document.getElementById('changePwd').style.display='none';
+    }
+    if(sessionStorage.getItem('currentLoggedIn')!= null && sessionStorage.getItem('currentLoggedIn') != 'admin'){
+        let currentUser = sessionStorage.getItem('currentLoggedIn')
+        let userData = JSON.parse(localStorage.getItem('userData')) || [];
+        for(let i = 0; i < userData.length; i++){
+            if(userData[i].newUser.username === currentUser){
+                document.getElementById('currentUsername').innerText= 'Username: ' + currentUser;
+                document.getElementById('currentUserEmail').innerHTML= 'Email: ' + userData[i].newUser.email;
+            }
+        }
+    }
+}
+// password reset //
+function setPwd(){
+    let userData = JSON.parse(localStorage.getItem('userData')) || [];
+    userData[position].newUser.password = document.getElementById('thisIsNewPwd').value
+    localStorage.setItem('userData', JSON.stringify(userData));
+    console.log(userData[position].newUser.password)
+    console.log(document.getElementById('thisIsNewPwd').value)
+    document.getElementById('thisIsNewPwd').value = '';
+
+
+}
+
 
 // User online boolean //
 
@@ -179,11 +210,10 @@ function testUserOnline(){
         document.getElementById('login').style.display='none'
         document.getElementById('logout').style.display='list-item'
         document.getElementById('register').style.display='none'
-        document.getElementById('options').style.display='grid'
         
         userIsOnline();
         console.log('user is offline ' + userOffline)
-        //document.getElementById('userInfo').innerHTML = ' Admin'
+
     }
     if (sessionStorage.getItem('currentLoggedIn')!= null){
         document.getElementById('myAccount').style.display='list-item'
@@ -192,7 +222,7 @@ function testUserOnline(){
         document.getElementById('register').style.display='none'
         userIsOnline();
         console.log('user is offline ' + userOffline)
-        //document.getElementById('userInfo').innerHTML = ' ' + sessionStorage.getItem('currentLoggedIn',username);
+
     }
     else{
         document.getElementById('myAccount').style.display='none'
@@ -279,6 +309,7 @@ function createApoll(){
     }
     console.log(data)
     removeOption();
+    window.location.reload();
 
 }
     // create polls for dom on load //
@@ -304,6 +335,7 @@ function parseData(){
                 data.splice([i], 1)
                 console.log(data)
                 localStorage.setItem('data', JSON.stringify(data));
+                window.location.reload();
             });
         }
         // create questions for polls //
@@ -328,33 +360,35 @@ function parseData(){
                     //test if admin//
                     if(sessionStorage.getItem('currentLoggedIn') != 'admin'){
                         //test if allready voted//
-                        for(let l = 0; l < userData[position].newUser.voted.length; l++){
+                        if(userData[position].newUser.voted.includes(data[i].newPoll.questions)){
                             //inform if allready voted//
-                            if(userData[position].newUser.voted.includes(data[i].newPoll.questions)){
-                                alert('Olet jo äänestänyt tätä')
-                                return;
-                            }else{
-                                //vote and save data//
-                                userData[position].newUser.voted.push(data[i].newPoll.questions)
-                                localStorage.setItem('userData', JSON.stringify(userData));
-                                data[i].newPoll.value[y]++
-                                localStorage.setItem('data', JSON.stringify(data));
-                                input.setAttribute('value', data[i].newPoll.answers[y] + ' ' + 'Votes: ' + data[i].newPoll.value[y])
-                                return;
-                            }
-
+                            alert('Olet jo äänestänyt tätä')
+                            return;
+                        }else{
+                            //vote and save data//
+                            userData[position].newUser.voted.push(data[i].newPoll.questions)
+                            localStorage.setItem('userData', JSON.stringify(userData));
+                            data[i].newPoll.value[y]++
+                            localStorage.setItem('data', JSON.stringify(data));
+                            input.setAttribute('value', data[i].newPoll.answers[y] + ' ' + 'Votes: ' + data[i].newPoll.value[y])
+                            return;
                         }
-                    }else{
-                        // you are admin, you dont have rules //
-                        data[i].newPoll.value[y]++
-                        localStorage.setItem('data', JSON.stringify(data));
-                        input.setAttribute('value', data[i].newPoll.answers[y] + ' ' + 'Votes: ' + data[i].newPoll.value[y])
                     }
                 }
+                if(sessionStorage.getItem('currentLoggedIn') == 'admin'){
+                    // you are admin, you dont have rules //
+                    data[i].newPoll.value[y]++
+                    localStorage.setItem('data', JSON.stringify(data));
+                    input.setAttribute('value', data[i].newPoll.answers[y] + ' ' + 'Votes: ' + data[i].newPoll.value[y])
+                }
+
             });
             input.setAttribute('value', data[i].newPoll.answers[y] + ' ' + 'Votes: ' + data[i].newPoll.value[y])
         
         }
+    }
+    if(sessionStorage.getItem('currentLoggedIn') == 'admin'){
+        document.getElementById('options').style.display='grid'
     }
 
 }
